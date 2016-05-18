@@ -57,7 +57,7 @@ def assoc():
         description['id'] = index
         correct_description(objet['description'])
         media.append({  # We append to the list the object correctly created
-            'name': objet['url'] + '.' + objet['description']['extension'],
+            'name': objet['url'] + '.' + objet['description']['type'],
             'description': objet['description'],
             'url': objet['url']
         })

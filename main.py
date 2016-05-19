@@ -25,12 +25,12 @@ def correct_description(data):
         data['type'] = 'image'
 
 
-def assoc():
+def build_db(path):
     corpus_actif = None
 
     # Open the file
     print(' Reading media file...')
-    with open('../nmedia/Medias.txt', 'r') as f:
+    with open(path + '/Medias.txt', 'r') as f:
         read_data = f.read()  # Get the string
 
     json_data = json.loads(read_data)  # And load into json object the data
@@ -43,7 +43,7 @@ def assoc():
 
     if corpus_actif is not None:  # If the corpus exists
         client.deleteCorpus(corpus_actif._id)  # We have to delete it
-    
+
     corpus_actif = client.createCorpus('test')  # And recreate it, to clear it
 
     print(' Corpus identifier: ' + str(corpus_actif._id))
@@ -75,7 +75,7 @@ def assoc():
 
     print(' Reading objects file...')
     # Open the file
-    with open('../nmedia/Objects.txt', 'r') as f:
+    with open(path + '/Objects.txt', 'r') as f:
         read_data = f.read()  # Get the string
     objets = json.loads(read_data)  # Load the data into a json object
 
@@ -87,11 +87,11 @@ def assoc():
 
     print(' Writing objects into Objects.txt...')
     # Output the file corrected
-    with open('Objects.txt', 'w') as f:
-        f.write(json.dumps(objets, sort_keys=True, indent=2, separators=(',', ': ')))
+    # with open('Objects.txt', 'w') as f:
+    #     f.write(json.dumps(objets, sort_keys=True, indent=2, separators=(',', ': ')))
 
     print(' Reading endroits file...')
-    with open('../nmedia/Endroits.txt', 'r') as f:
+    with open(path + '/Endroits.txt', 'r') as f:
         read_data = f.read()  # Get the string
     endroits = json.loads(read_data)  # Load the data into a json object
 
@@ -109,7 +109,7 @@ print(' Logging in...')
 client.login('root', 'admin')
 
 if __name__ == "__main__":
-    assoc()
+    build_db(sys.argv[1])
     #correct_extensions()
 
 print(' Logging out...')
